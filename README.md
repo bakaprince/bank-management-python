@@ -1,25 +1,35 @@
 # Bank Management System
 
-A Python + MySQL based CLI/GUI application to simulate basic banking operations with two login modes: **User** and **Employee**.
+A Python + MySQL based CLI/GUI application simulating basic banking operations. It includes two login modes—**User** and **Employee**—with role-based access and functionalities.
 
-## Features
+---
 
-- **User Mode**
-  - Check balance
-  - Transfer money
-  - View KYC status
+## 🔧 Features
 
-- **Employee Mode**
-  - Add/Update/Delete users
-  - Search user records
-  - View KYC status via bar graph
+### User Mode:
+- Check account balance
+- Transfer money to another account
+- View KYC status
 
-## Software Used
+### Employee Mode:
+- Add new users with initial balance and details
+- Update user info (name, phone, balance, etc.)
+- Delete user records
+- View all users
+- Search user by account number
+- Visualize KYC verification stats with a bar graph
 
-- Python 3.7
-- MySQ
-- Tkinter (GUI login form)
-- Matplotlib (for data visualization)
+---
+
+## 🛠️ Tech Stack
+
+- **Python 3.7**
+- **MySQL**
+- **Tkinter** (for GUI login)
+- **Matplotlib** (for charts)
+- **mysql-connector-python** (for DB connection)
+
+---
 
 ## Screenshots
 -![User Interface Screenshot](https://github.com/user-attachments/assets/a107a1b9-5eb6-4463-9007-70786889c3ee)
@@ -29,11 +39,34 @@ A Python + MySQL based CLI/GUI application to simulate basic banking operations 
 -![employee interface 2](https://github.com/user-attachments/assets/af7c60be-db9a-47c4-bc7f-fc20432049f7)
 
 
-## Future Improvements
+## 🗃️ Database Setup
 
-- Rebuild as a web app using Flask or Django
-- Add authentication encryption
-- Use environment variables for database configs
+Refer to [`db-setup.pdf`](./db-setup.pdf) for step-by-step instructions on setting up your MySQL database and tables.
 
 ---
-Project originally built for CBSE Class 12 Computer Science practical.
+
+## ▶️ Run Instructions
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/bakaprince/bank-management-python
+   cd bank-management-python
+
+✅ Requirements
+
+Python 3.7+
+MySQL Server
+Installed Python libraries from requirements.txt
+
+---
+
+📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+🙋‍♂️ Author
+
+Sudeep Kushwaha
+[GitHub](https://github.com/bakaprince) | [LinkedIn](https://www.linkedin.com/in/bakaprince) |
