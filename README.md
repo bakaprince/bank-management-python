@@ -14,7 +14,7 @@ A Python + MySQL based CLI/GUI application to simulate basic banking operations 
   - Search user records
   - View KYC status via bar graph
 
-## Tech Stack
+## Software Used
 
 - Python 3.7
 - MySQL
