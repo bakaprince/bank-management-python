@@ -68,5 +68,6 @@ This project is licensed under the MIT License.
 
 🙋‍♂️ Author
 
-Sudeep Kushwaha
+**Sudeep Kushwaha**
+
 [GitHub](https://github.com/bakaprince) | [LinkedIn](https://www.linkedin.com/in/bakaprince) |
