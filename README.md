@@ -17,12 +17,16 @@ A Python + MySQL based CLI/GUI application to simulate basic banking operations 
 ## Software Used
 
 - Python 3.7
-- MySQL
+- MySQ
 - Tkinter (GUI login form)
 - Matplotlib (for data visualization)
 
 ## Screenshots
+-![User Interface Screenshot](https://github.com/user-attachments/assets/a107a1b9-5eb6-4463-9007-70786889c3ee)
 
+-L![employe interface 1 ](https://github.com/user-attachments/assets/df1cbfff-2645-4a18-8da2-fd583d7923f8)
+
+-![employee interface 2](https://github.com/user-attachments/assets/af7c60be-db9a-47c4-bc7f-fc20432049f7)
 
 
 ## Future Improvements
