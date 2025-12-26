@@ -1,2 +1,120 @@
-mysql-connector-python
-matplotlib
+Python Requirements :
+
+1. Python Version : Python 3.7 or higher
+
+2. Required Packages To Install :-
+
+Run the following command in cmd/terminal :
+
+'''pip install mysql-connector-python'''
+
+OR
+
+'''pip install mysql-connector'''
+
+
+3. Standard Library Modules Used (No Installation Required) :-
+
+- time : For adding delays in the program
+- random : For generating unique random account numbers
+- datetime : For handling dates and timestamps in transactions and account creation
+
+
+4. Summary of All Python Packages :-
+
+Package Name                Version         Purpose
+-------------------         -------         ---------
+mysql-connector-python       8.0.26+         Database connectivity with MySQL
+time                         (built-in)      Program delays and timing
+random                       (built-in)      Generate unique account numbers
+datetime                     (built-in)      Handle dates and transactions
+
+
+MySQL Requirements :
+
+Tables And Database Requirement For Code To Run Properly
+
+1. Database Creation :-
+
+CREATE DATABASE bank_management_cse;
+
+2. Use This Database Only For New Table Creation :-
+
+USE bank_management_cse;
+
+3. Create Table To Store Login And Account Details :-
+
+CREATE TABLE accounts(
+    account_no INT PRIMARY KEY,
+    name VARCHAR(100),
+    dob DATE,
+    phone VARCHAR(15),
+    email VARCHAR(100),
+    account_type VARCHAR(20),
+    pin VARCHAR(10),
+    balance FLOAT DEFAULT 0,
+    kyc_completed BOOLEAN DEFAULT FALSE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+4. Create Table To Store KYC Information Of User :-
+
+CREATE TABLE kyc(
+    account_no INT PRIMARY KEY,
+    aadhar VARCHAR(12),
+    pan VARCHAR(10),
+    address TEXT,
+    status VARCHAR(20) DEFAULT 'Unverified',
+    FOREIGN KEY (account_no) REFERENCES accounts(account_no)
+);
+
+5. Create Table To Store Deposit And Withdraw Transaction History :-
+
+CREATE TABLE transactions(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_no INT,
+    type VARCHAR(15),
+    amount FLOAT,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    flag VARCHAR(20) DEFAULT 'OK',
+    FOREIGN KEY (account_no) REFERENCES accounts(account_no)
+);
+
+6. Create Table To Store Wrongful Transaction Reports :-
+
+CREATE TABLE wrongful_reports(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_id INT,
+    account_no INT,
+    reason TEXT,
+    report_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'Pending',
+    FOREIGN KEY (transaction_id) REFERENCES transactions(id),
+    FOREIGN KEY (account_no) REFERENCES accounts(account_no)
+);
+
+
+7. Run The Python Code 'main.py' After Creating All Tables And Make Sure MySQL Is Connected Properly.
+
+
+---
+
+NOTE :-
+Don't change any table name or column name unless you want an error.
+KYC status must be only 'Verified' or 'Unverified'.
+For transaction history to show properly, do at least 2–3 deposits/withdraws.
+If random account number is generated, make sure it is unique (already handled in code).
+The 'flag' column in transactions table stores transaction status (OK for normal, Flagged for reported).
+The 'wrongful_reports' table is used to track reports of fraudulent transactions.
+
+Features Implemented:
+1. Check Balance - View account balance
+2. Withdraw - Withdraw amount from account
+3. Deposit - Deposit amount to account
+4. Transfer Funds - Transfer money between accounts
+5. View Transaction History - View all transactions for account
+6. Loan Eligibility - Check if account is eligible for loan
+7. Report Wrongful Transaction - Report suspicious transactions
+8. Update Account Details - Update name, phone, email, address
+9. KYC Status - Check KYC verification status
+10. Logout - Exit from account menu

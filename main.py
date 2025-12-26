@@ -1,147 +1,115 @@
-import matplotlib.pyplot as plt
-import mysql.connector as mysql
-from banklogin import run_login, get_login_details
+from login_register import login, register
+import basic_features as bf
+import time
 
-cn = mysql.connect(host='Localhost', user='root', passwd='lps123', database='GareebBank')
-cr = cn.cursor()
+def home(acc_no):
+    print("\n" + "." * 50)
+    print(":                  BANK SYSTEM                   :")
+    print("." * 50)
+    print(": 1. Check Balance                               :")
+    print(": 2. Withdraw                                    :")
+    print(": 3. Deposit                                     :")
+    print(": 4. Transfer Funds                              :")
+    print(": 5. View Transaction History                    :")
+    print(": 6. Loan Eligibility                            :")
+    print(": 7. Report Wrongful Transaction                 :")
+    print(": 8. Update Account Details                      :")
+    print(": 9. KYC Status                                  :")
+    print(": 10. Logout                                     :")
+    print("." * 50)
+    n = int(input("Enter choice (1-10): ").strip())
 
-def user_interface(account_no):
-    while True:
-        print('Welcome User', account_no)
-        ch = int(input('''Enter 1 To Check Current Balance
-Enter 2 To Transfer Money
-Enter 3 To Check KYC Status 
-Enter 0 To Exit
-Your Choice='''))
+    if n == 1:
+        bal = bf.check_balance(acc_no)
+        print(f"Balance: {bal}")
+    elif n == 2:
+        bf.withdraw(acc_no, float(input("Enter amount to withdraw: ").strip()))
+        print("Withdrawal successful.")
+    elif n == 3:
+        bf.deposit(acc_no, float(input("Enter amount to deposit: ").strip()))
+        print("Deposit successful.")
+    elif n == 4:
+        bf.transfer_funds(acc_no)
+        print("Transfer completed.")
+    elif n == 5:
+        history = bf.view_transaction_history(acc_no)
+        for record in history:
+            print(record)
+    elif n == 6:
+        eligibility = bf.check_loan_eligibility(acc_no)
+        print(eligibility)
+    elif n == 7:
+        transaction_id = int(input("Enter Transaction ID to report: ").strip())
+        reason = input("Enter reason for reporting: ").strip()
+        report = bf.report_wrongful_transaction(acc_no, transaction_id, reason)
+        if report: 
+            print("Transaction reported successfully.")
+        else:
+            print("Failed to report transaction.") 
+    elif n == 8:
+        print("Update Account Details")
+        print("Leave blank to skip a field")
+        name = input("Enter new name (or leave blank): ").strip()
+        phone = input("Enter new phone (or leave blank): ").strip()
+        email = input("Enter new email (or leave blank): ").strip()
+        address = input("Enter new address (or leave blank): ").strip()
+        result = bf.update_account_details(acc_no, name if name else None, phone if phone else None, email if email else None, address if address else None)
+        print(result)
 
-        try:
-            if ch == 1:
-                q = "SELECT current_balance FROM user_info WHERE account_no = %s"
-                cr.execute(q, (account_no,))
-                b = cr.fetchone()
-                print('₹', b[0])
+    elif n == 9:
+        status = bf.check_kyc_status(acc_no)
+        print(f"KYC Status: {status}")
+    elif n == 10:
+        print("Logging out...")
+        start_menu()
+        return
+    else:
+        print("Invalid choice, please use only 1-10")
+    print("Loading Options...Please wait..")
+    time.sleep(1)
+    control_menu(acc_no)
 
-            elif ch == 2:
-                c = int(input("Enter Receiver's Account No.: "))
-                p = int(input('Enter Amount To Be Transferred: '))
-                q1 = "UPDATE user_info SET current_balance = current_balance + %s WHERE account_no = %s"
-                q2 = "UPDATE user_info SET current_balance = current_balance - %s WHERE account_no = %s"
-                cr.execute(q1, (p, c))
-                cr.execute(q2, (p, account_no))
-                print('amount transferred successfull')
-                cn.commit()
 
-            elif ch == 3:
-                q1 = "SELECT KYC_status FROM user_info WHERE account_no = %s"
-                cr.execute(q1, (account_no,))
-                b = cr.fetchone()
-                print('Your KYC Status is', b[0])
-            elif ch == 0:
-                print("Exiting User Interface")
-                break
+def control_menu(acc_no):
+    print("\n" + "." * 50)
+    print(":                  BANK SYSTEM                   :")
+    print("." * 50)
+    print(": 1. Go Back                                     :")
+    print(": 2. Exit                                        :")
+    print("." * 50)
+    n = int(input("Enter choice (1-2): ").strip())
+    if n == 1:
+        home(acc_no)
+    elif n == 2:
+        print("Exiting... Goodbye!")
+    else:
+        print("Invalid choice....Use only 1 or 2",control_menu(acc_no))
+        time.sleep(2)
+        exit()
 
-            else:
-                print("Invalid choice. Please enter a number between 0 and 3.")
-        
-        except:
-            cn.close()
 
-def emp_interface():
-    while True:
-        print('Welcome Employee')
-        ch = int(input('''Enter 1 To Insert New User
-Enter 2 Update Info
-Enter 3 Delete A User
-Enter 4 Display All Records
-Enter 5 Search A Record
-Enter 6 View KYC Status Graph
-Enter 0 To Exit
-Your Choice='''))
+def start_menu():
+    print("\n" + "." * 50)
+    print(":                  BANK SYSTEM                   :")
+    print("." * 50)
+    print(": 1. Create Account                              :")
+    print(": 2. Login                                       :")
+    print("." * 50)
+    n = int(input("Enter choice (1-2): ").strip())
+    if n == 1:
+        acc_no = register()
+        time.sleep(1)
+        if acc_no is not None:
+            home(acc_no)
+    else:
+        acc_no = login()
+        time.sleep(1)
+        if acc_no is not None:
+            home(acc_no)
+        else:
+            print("Returning to start menu...Please wait...")
+            time.sleep(1)
+            start_menu()
 
-        try:
-            if ch == 1:
-                account_no = int(input('Enter account_no: '))
-                name = input('Enter Name: ')
-                phoneno = input('Enter PhoneNo: ')
-                current_balance = float(input('Enter current_balance: '))
-                kyc_status = input('Enter kyc_status: ')
-                password=input('Enter New Password')
-                q = "INSERT INTO user_info (account_no, Name, PhoneNo, current_balance, KYC_status) VALUES (%s, %s, %s, %s, %s)"
-                q2= "INSERT INTO bankinfo(account_no,password,login_mode) VALUES (%s, %s, %s)"
-                values1=(account_no,password,'User')
-                values = (account_no, name, phoneno, current_balance, kyc_status)
-                cr.execute(q, values)
-                cr.execute(q2,values1)
-                cn.commit()
-                print('Task Completed Successfully')
-
-            elif ch == 2:
-                w = input('Enter the field to update: ')
-                n = input('Enter the new value: ')
-                account_no = input('Enter the account number to update: ')
-                q = "UPDATE user_info SET {} = '{}' WHERE account_no = {};".format(w, n, account_no)
-                cr.execute(q)
-                cn.commit()
-                print('Task Completed Successfully')
-
-            elif ch == 3:
-                account_no = int(input('Enter the account number to delete: '))
-                q = "DELETE FROM user_info WHERE account_no = {};".format(account_no)
-                cr.execute(q)
-                cn.commit()
-                print('Task Completed Successfully')
-
-            elif ch == 4:
-                q = "SELECT * FROM user_info"
-                cr.execute(q)
-                a = cr.fetchall()
-                for record in a:
-                    print(record)
-
-            elif ch == 5:
-                account_no = int(input('Enter account number to search for: '))
-                q = "SELECT * FROM user_info WHERE account_no = {};".format(account_no)
-                cr.execute(q)
-                b = cr.fetchall()
-                print(b)
-
-            elif ch == 6:
-                plot_kyc_status_graph()
-
-            elif ch == 0:
-                print("Exiting Employee Interface")
-                break
-
-            else:
-                print("Invalid choice. Please enter a number between 0 and 6.")
-        
-        except :
-            cn.close()
-
-def plot_kyc_status_graph():
-    q = "SELECT KYC_status, COUNT(*) FROM user_info GROUP BY KYC_status"
-    cr.execute(q)
-    result = cr.fetchall()
-
-    statuses = [row[0] for row in result]
-    counts = [row[1] for row in result]
-
-    plt.figure(figsize=(10, 5))
-    plt.bar(statuses, counts, color=['green', 'red'])
-    plt.title('KYC Status Distribution')
-    plt.xlabel('KYC Status')
-    plt.ylabel('Number of Users')
-    plt.grid(True)
-    plt.show()
-
-def menu():
-    if __name__ == "__main__":
-        run_login(cn, cr)
-        login_mode, account_no = get_login_details()
-
-        if login_mode == "Employee":
-            emp_interface()
-        elif login_mode == "User":
-            user_interface(account_no)
-menu()
-
+if __name__ == "__main__":
+    start_menu()

@@ -1,73 +1,111 @@
-# Bank Management System
+Bank Management System (Python)
 
-A Python + MySQL based CLI/GUI application simulating basic banking operations. It includes two login modes—**User** and **Employee**—with role-based access and functionalities.
+A console-based Bank Management System built using Python with MySQL as the backend database.
+
+This project was initially developed as a Class 12 school project and later refactored in college to improve code structure, reliability, and maintainability.
+
 
 ---
 
-## 🔧 Features
+Features
 
-### User Mode:
-- Check account balance
-- Transfer money to another account
-- View KYC status
+User registration and login system
 
-### Employee Mode:
-- Add new users with initial balance and details
-- Update user info (name, phone, balance, etc.)
-- Delete user records
-- View all users
-- Search user by account number
-- Visualize KYC verification stats with a bar graph
+Unique account number generation (collision-free)
 
----
+Deposit, withdrawal, and balance enquiry
 
-## 🛠️ Tech Stack
+Modular code structure
 
-- **Python 3.7**
-- **MySQL**
-- **Tkinter** (for GUI login)
-- **Matplotlib** (for charts)
-- **mysql-connector-python** (for DB connection)
+MySQL database integration
+
+
 
 ---
 
-## Screenshots
--![User Interface Screenshot](https://github.com/user-attachments/assets/a107a1b9-5eb6-4463-9007-70786889c3ee)
+Project Evolution
 
--L![employe interface 1 ](https://github.com/user-attachments/assets/df1cbfff-2645-4a18-8da2-fd583d7923f8)
+Version 1.0 (School Project)
 
--![employee interface 2](https://github.com/user-attachments/assets/af7c60be-db9a-47c4-bc7f-fc20432049f7)
+Single-file implementation
+
+Random account number generation (possible duplication)
+
+User and employee modes
+
+Limited modularity
 
 
-## 🗃️ Database Setup
+Version 2.0 (College Refactor)
 
-Refer to [`db-setup.pdf`](./db-setup.pdf) for step-by-step instructions on setting up your MySQL database and tables.
+Modular architecture:
+
+main.py
+
+login_register.py
+
+basic_features.py
+
+
+Fixed authentication flow
+
+Guaranteed unique account numbers
+
+User-only mode (employee mode removed)
+
+Cleaned and updated dependencies
+
+Improved documentation
+
+
 
 ---
 
-## ▶️ Run Instructions
+Project Structure
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/bakaprince/bank-management-python
-   cd bank-management-python
+bank-management-python/
+├── main.py
+├── login_register.py
+├── basic_features.py
+├── requirements.txt
+└── README.md
 
-✅ Requirements
 
-Python 3.7+
+---
+
+Requirements
+
+Python 3.x
+
 MySQL Server
-Installed Python libraries from requirements.txt
+
+Python dependencies listed in requirements.txt
+
+
+Install dependencies:
+
+pip install -r requirements.txt
+
 
 ---
 
-📄 License
+How to Run
 
-This project is licensed under the MIT License.
+1. Set up the MySQL database according to the project requirements
+
+
+2. Run the application:
+
+
+
+python main.py
+
 
 ---
 
-🙋‍♂️ Author
+Notes
 
-**Sudeep Kushwaha**
+This project is intended for academic and learning purposes and demonstrates the progression from a basic monolithic implementation to a more structured and maintainable design.
 
-[GitHub](https://github.com/bakaprince) | [LinkedIn](https://www.linkedin.com/in/bakaprince) |
+
+---
